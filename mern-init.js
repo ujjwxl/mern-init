@@ -1,22 +1,25 @@
-const { exec } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const { exec } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
 function createMERNProject() {
-  exec("npm create vite@latest client -- --template react", (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error: ${error.message}`);
-      return;
+  exec(
+    "npm create vite@latest client -- --template react",
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        return;
+      }
+      console.log(`React project initialized successfully.`);
+      installFrontendPackages();
     }
-    console.log(`React project initialized successfully.`);
-    installFrontendPackages();
-  });
+  );
 }
 
 function installFrontendPackages() {
-  const frontendPath = path.join(__dirname, 'client');
+  const frontendPath = path.join(__dirname, "client");
   process.chdir(frontendPath);
-  exec('npm install', (error, stdout, stderr) => {
+  exec("npm install", (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`);
       return;
@@ -27,7 +30,7 @@ function installFrontendPackages() {
 }
 
 function createBackendFolder() {
-  const backendPath = path.join(__dirname, 'server');
+  const backendPath = path.join(__dirname, "server");
 
   fs.mkdir(backendPath, (err) => {
     if (err) {
@@ -41,7 +44,7 @@ function createBackendFolder() {
 }
 
 function createBackendProjectStructure() {
-  exec('npm init -y', (error, stdout, stderr) => {
+  exec("npm init -y", (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`);
       return;
@@ -52,7 +55,7 @@ function createBackendProjectStructure() {
 }
 
 function installBackendPackages() {
-  exec('npm install express mongoose', (error, stdout, stderr) => {
+  exec("npm install express mongoose", (error, stdout, stderr) => {
     if (error) {
       console.error(`Error: ${error.message}`);
       return;
@@ -63,7 +66,7 @@ function installBackendPackages() {
 }
 
 function createBackendFolders() {
-  const backendFolders = ['routes', 'controllers', 'models'];
+  const backendFolders = ["routes", "controllers", "models"];
 
   backendFolders.forEach((folder) => {
     fs.mkdir(folder, (err) => {
@@ -74,6 +77,45 @@ function createBackendFolders() {
       console.log(`${folder} directory created.`);
     });
   });
+
+  finalizeProjectSetup();
+}
+
+function clearFiles() {
+  const clientPath = path.join(__dirname, "client");
+  const filesToClear = ["App.jsx", "index.css", "App.css"];
+
+  filesToClear.forEach((file) => {
+    const filePath = path.join(clientPath, "src", file);
+    fs.writeFile(filePath, "", (err) => {
+      if (err) {
+        console.error(`Error clearing ${file}: ${err}`);
+        return;
+      }
+      console.log(`${file} cleared.`);
+    });
+  });
+}
+
+function createClientFolders() {
+  const clientPath = path.join(__dirname, "client");
+  const foldersToCreate = ["components", "pages"];
+
+  foldersToCreate.forEach((folder) => {
+    const folderPath = path.join(clientPath, folder);
+    fs.mkdir(folderPath, (err) => {
+      if (err) {
+        console.error(`Error creating ${folder} directory: ${err}`);
+        return;
+      }
+      console.log(`${folder} directory created.`);
+    });
+  });
+}
+
+function finalizeProjectSetup() {
+  clearFiles();
+  createClientFolders();
 }
 
 createMERNProject();
