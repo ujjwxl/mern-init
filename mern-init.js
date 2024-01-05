@@ -116,6 +116,18 @@ function createClientFolders() {
 function finalizeProjectSetup() {
   clearFiles();
   createClientFolders();
+  deleteSelf(); 
+}
+
+function deleteSelf() {
+  const currentFilePath = path.join(__dirname, 'main.js');
+  fs.unlink(currentFilePath, (err) => {
+    if (err) {
+      console.error('Error deleting file:', err);
+    } else {
+      console.log('File deleted successfully.');
+    }
+  });
 }
 
 createMERNProject();
