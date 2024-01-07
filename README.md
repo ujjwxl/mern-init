@@ -8,20 +8,20 @@ This script is a Node.js application designed to automate the setup of a basic M
 - Node.js installed on your system
 
 ### Steps to Run
-1. Save the provided script as `mern-init.js` in your project directory.
-2. Navigate to the directory where you saved the `mern-init.js` script using the terminal or command prompt.
+1. Save the provided script as `main.js` in your project directory.
+2. Navigate to the directory where you saved the `main.js` script using the terminal or command prompt.
 3. Run the script using Node.js:
 
     ```bash
-    node mern-init.js
+    node main.js
     ```
 
 ## Project Structure
 
 - The script sets up a React frontend in a `client` directory using Vite as a bundler and creates directories for components and pages.
-- An Express backend is initialized in a `server` directory, including necessary folders for routes, controllers, and models.
+- An Express backend is initialized in a `server` directory, including necessary folders for routes, controllers, and models and `mongoose` package for MongoDB.
 - Frontend and backend packages are installed automatically using npm.
-- Unnecessary files in the React frontend (`App.jsx`, `index.css`, `App.css`) are cleared to provide a clean starting point.
+- Unnecessary boilerplate code in the React frontend (`App.jsx`, `index.css`, `App.css`) are cleared to provide a clean starting point.
 
 ## Important Note
 
